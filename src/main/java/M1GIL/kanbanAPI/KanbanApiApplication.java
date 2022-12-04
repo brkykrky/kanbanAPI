@@ -34,8 +34,8 @@ public class KanbanApiApplication
 			userService.saveRole(new Role(null,"ADMIN"));
 			userService.saveRole(new Role(null,"USER"));
 
-			userService.saveUser(new User(null,new Date(System.currentTimeMillis()) ,"john","lastName1","user1","12345",new ArrayList<>()));
-			userService.saveUser(new User(null,new Date(System.currentTimeMillis()),"emily","lastName2","user2","12345",new ArrayList<>()));
+			userService.saveUser(new User(null,new Date(System.currentTimeMillis()) ,"john","lastName1","user1","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null,new Date(System.currentTimeMillis()),"emily","lastName2","user2","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
 
 			userService.addRoleToUser("user1","ADMIN");
 			userService.addRoleToUser("user1","USER");

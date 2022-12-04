@@ -8,13 +8,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-
-import static javax.persistence.GenerationType.AUTO;
+import java.util.List;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class User
 {
-    @Id @GeneratedValue(strategy = AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date creationDate;
     private String firstName;
@@ -24,4 +23,16 @@ public class User
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "creator")
+    private List<Kanban> createdKanbanList = new ArrayList<>();
+
+    @OneToMany(mappedBy= "responsible")
+    private List<Task> responsibleTaskList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "creator")
+    private List<Task> createdTaskList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Invitation> invitationList = new ArrayList<>();
 }
