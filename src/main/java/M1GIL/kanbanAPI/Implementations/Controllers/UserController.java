@@ -5,7 +5,6 @@ import M1GIL.kanbanAPI.Implementations.Entities.User;
 import M1GIL.kanbanAPI.Implementations.Models.UserRoleModel;
 import M1GIL.kanbanAPI.Interfaces.IControllers.IUserController;
 import M1GIL.kanbanAPI.Interfaces.IServices.IUserService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +25,7 @@ public class UserController implements IUserController
     }
 
     @PostMapping(path = "/users/save")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<User>saveUser(@RequestBody User user)
     {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/users/save").toUriString());

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -15,7 +16,9 @@ public class User
 {
     @Id @GeneratedValue(strategy = AUTO)
     private Long id;
-    private String name;
+    private Date creationDate;
+    private String firstName;
+    private String lastName;
     @Column(unique=true)
     private String username;
     private String password;

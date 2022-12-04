@@ -5,7 +5,6 @@ import M1GIL.kanbanAPI.Implementations.Entities.User;
 import M1GIL.kanbanAPI.Interfaces.IRepositories.IRoleRepo;
 import M1GIL.kanbanAPI.Interfaces.IRepositories.IUserRepo;
 import M1GIL.kanbanAPI.Interfaces.IServices.IUserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

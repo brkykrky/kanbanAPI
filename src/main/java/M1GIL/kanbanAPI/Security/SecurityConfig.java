@@ -1,6 +1,5 @@
 package M1GIL.kanbanAPI.Security;
 
-import M1GIL.kanbanAPI.Filter.CustomAuthenticationFilter;
 import M1GIL.kanbanAPI.Filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -33,12 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
-        http.cors().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilter(customAuthenticationFilter);
         http.authorizeRequests().antMatchers(GET,"/api/users/list").authenticated();
         http.authorizeRequests().antMatchers(POST,"/api/roles/**").authenticated();
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
