@@ -5,15 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class LoginDto extends BaseResponseDto
+public class TaskListDto
 {
     private Long id;
     private Date creationDate;
-    private String username;
-    private String authToken;
-    private String firstName;
-    private String lastName;
-    private String refreshToken;
+    private String title;
+    private List<TaskDto> tasks;
 }

@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class LoginDto extends BaseResponseDto
+public class TaskDto extends BaseResponseDto
 {
     private Long id;
     private Date creationDate;
-    private String username;
-    private String authToken;
-    private String firstName;
-    private String lastName;
-    private String refreshToken;
+    private Date dateLimit;
+    private String name;
+    private String description;
+    private Long responsibleId;
+    private Long creatorId;
 }

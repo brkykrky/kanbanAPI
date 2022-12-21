@@ -35,6 +35,9 @@ public class AuthService implements IAuthService
 
         loginDto.setId(user.getId());
         loginDto.setUsername(user.getUsername());
+        loginDto.setFirstName(user.getFirstName());
+        loginDto.setLastName(user.getLastName());
+        loginDto.setDate(new Date(System.currentTimeMillis()));
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
 
         String accesToken = JWT.create()
