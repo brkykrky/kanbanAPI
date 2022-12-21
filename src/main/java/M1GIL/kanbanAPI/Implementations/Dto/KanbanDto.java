@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,5 +18,6 @@ public class KanbanDto extends BaseResponseDto
     private Date dateLimit;
     private Long creatorId;
     private Boolean isPrivate;
-    private List<TaskListDto> taskLists;
+    private List<TaskListDto> taskLists = new ArrayList<>();
+    private List<Long> userIds = new ArrayList<>();
 }
