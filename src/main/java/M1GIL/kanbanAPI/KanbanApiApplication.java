@@ -57,7 +57,7 @@ public class KanbanApiApplication
 
 			List<Long> userIds = new ArrayList<>();
 			userIds.add(3L);
-			kanbanService.create(new KanbanDto(null,new Date(System.currentTimeMillis()),"kanban1","description kanban",new Date(System.currentTimeMillis()),3L,true,taskLists,userIds));
+			kanbanService.create(new KanbanDto(null,new Date(System.currentTimeMillis()),"kanban1","description kanban",new Date(System.currentTimeMillis()),3L,false,taskLists,userIds));
 
 			kanbanService.inviteUser(new InvitationModel(3L,4L,7L));
 		};

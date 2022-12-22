@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(GET,"/api/users/list").authenticated();
         http.authorizeRequests().antMatchers(POST,"/api/roles/**").authenticated();
+        http.authorizeRequests().antMatchers(POST,"/api/kanban/public").permitAll();
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
