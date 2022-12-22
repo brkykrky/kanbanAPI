@@ -35,4 +35,7 @@ public class User
 
     @OneToMany(mappedBy = "receiver")
     private List<Invitation> invitationList = new ArrayList<>();
+
+    @ManyToMany
+    private List<Kanban> kanbans = new ArrayList<>();
 }

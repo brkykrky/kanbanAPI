@@ -1,12 +1,7 @@
 package M1GIL.kanbanAPI.Implementations.Controllers;
 
-import M1GIL.kanbanAPI.Implementations.Dto.BaseResponseDto;
-import M1GIL.kanbanAPI.Implementations.Dto.KanbanDto;
-import M1GIL.kanbanAPI.Implementations.Dto.TaskDto;
-import M1GIL.kanbanAPI.Implementations.Models.CreateTaskListModel;
-import M1GIL.kanbanAPI.Implementations.Models.CreateTaskModel;
-import M1GIL.kanbanAPI.Implementations.Models.IdModel;
-import M1GIL.kanbanAPI.Implementations.Models.OrderKanbansModel;
+import M1GIL.kanbanAPI.Implementations.Dto.*;
+import M1GIL.kanbanAPI.Implementations.Models.*;
 import M1GIL.kanbanAPI.Interfaces.IControllers.IKanbanController;
 import M1GIL.kanbanAPI.Interfaces.IServices.IKanbanService;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +30,10 @@ public class KanbanController implements IKanbanController
     }
 
     @Override
-    public ResponseEntity<KanbanDto> modify(KanbanDto kanbanDto)
+    @PostMapping(path = "/kanban/modify")
+    public ResponseEntity<KanbanDto> modify(@RequestBody ModifyKanbanModel modifyKanbanModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.modify(modifyKanbanModel));
     }
 
     @Override
@@ -68,21 +64,24 @@ public class KanbanController implements IKanbanController
     }
 
     @Override
-    public ResponseEntity<List<KanbanDto>> getUserKanbans(IdModel idModel)
+    @PostMapping(path =  "/kanban/getUserKanbans")
+    public ResponseEntity<List<KanbanDto>> getUserKanbans(@RequestBody IdModel idModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.getUserKanbans(idModel));
     }
 
     @Override
-    public ResponseEntity<List<KanbanDto>> getParticipedKanbans(IdModel idModel)
+    @PostMapping(path = "/kanban/getParticipedKanbans")
+    public ResponseEntity<List<KanbanDto>> getParticipedKanbans(@RequestBody IdModel idModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.getParticipedKanbans(idModel));
     }
 
     @Override
-    public ResponseEntity<BaseResponseDto> inviteUser(Long senderId, Long invitedId, Long kanbanId)
+    @PostMapping(path = "/kanban/invite")
+    public ResponseEntity<BaseResponseDto> inviteUser(@RequestBody InvitationModel invitationModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.inviteUser(invitationModel));
     }
 
     @Override
@@ -97,5 +96,40 @@ public class KanbanController implements IKanbanController
     public ResponseEntity<BaseResponseDto> deleteTaskList(@RequestBody IdModel idModel)
     {
         return ResponseEntity.ok().body(kanbanService.deleteTaskList(idModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/getUserInvitations")
+    public ResponseEntity<List<InvitationDto>> getUserInvitations(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.getUserInvitations(idModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/acceptInvitation")
+    public ResponseEntity<BaseResponseDto> acceptInvitation(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.acceptInvitation(idModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/refuseInvitation")
+    public ResponseEntity<BaseResponseDto> refuseInvitation(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.refuseInvitation(idModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/modifyTask")
+    public ResponseEntity<TaskDto> modifyTask(@RequestBody ModifyTaskModel modifyTaskModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.modifyTask(modifyTaskModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/modifyTaskList")
+    public ResponseEntity<TaskListDto> modifyTaskList(@RequestBody ModifyTaskListModel modifyTaskListModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.modifyTaskList(modifyTaskListModel));
     }
 }

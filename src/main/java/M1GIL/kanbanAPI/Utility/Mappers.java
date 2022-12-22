@@ -3,6 +3,7 @@ package M1GIL.kanbanAPI.Utility;
 import M1GIL.kanbanAPI.Implementations.Dto.KanbanDto;
 import M1GIL.kanbanAPI.Implementations.Dto.TaskDto;
 import M1GIL.kanbanAPI.Implementations.Dto.TaskListDto;
+import M1GIL.kanbanAPI.Implementations.Dto.UserDto;
 import M1GIL.kanbanAPI.Implementations.Entities.Kanban;
 import M1GIL.kanbanAPI.Implementations.Entities.Task;
 import M1GIL.kanbanAPI.Implementations.Entities.TaskList;
@@ -58,5 +59,15 @@ public class Mappers
         taskDto.setCreatorId(task.getCreator().getId());
         taskDto.setCreationDate(task.getCreationDate());
         return taskDto;
+    }
+    public static UserDto UserToUserDto(User user)
+    {
+        UserDto userDto = new UserDto();
+        userDto.setFirstName(user.getFirstName());
+        userDto.setUsername(user.getUsername());
+        userDto.setLastName(user.getLastName());
+        userDto.setId(user.getId());
+        userDto.setDate(new Date(System.currentTimeMillis()));
+        return userDto;
     }
 }

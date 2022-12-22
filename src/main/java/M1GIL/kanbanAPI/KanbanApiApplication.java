@@ -6,6 +6,7 @@ import M1GIL.kanbanAPI.Implementations.Dto.TaskListDto;
 import M1GIL.kanbanAPI.Implementations.Entities.Role;
 import M1GIL.kanbanAPI.Implementations.Entities.Task;
 import M1GIL.kanbanAPI.Implementations.Entities.User;
+import M1GIL.kanbanAPI.Implementations.Models.InvitationModel;
 import M1GIL.kanbanAPI.Interfaces.IServices.IKanbanService;
 import M1GIL.kanbanAPI.Interfaces.IServices.IUserService;
 import org.springframework.boot.CommandLineRunner;
@@ -40,8 +41,8 @@ public class KanbanApiApplication
 			userService.saveRole(new Role(null,"ADMIN"));
 			userService.saveRole(new Role(null,"USER"));
 
-			userService.saveUser(new User(null,new Date(System.currentTimeMillis()) ,"john","lastName1","user1","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
-			userService.saveUser(new User(null,new Date(System.currentTimeMillis()),"emily","lastName2","user2","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null,new Date(System.currentTimeMillis()) ,"john","lastName1","user1","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null,new Date(System.currentTimeMillis()),"emily","lastName2","user2","12345",new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
 
 			userService.addRoleToUser("user1","ADMIN");
 			userService.addRoleToUser("user1","USER");
@@ -57,6 +58,8 @@ public class KanbanApiApplication
 			List<Long> userIds = new ArrayList<>();
 			userIds.add(3L);
 			kanbanService.create(new KanbanDto(null,new Date(System.currentTimeMillis()),"kanban1","description kanban",new Date(System.currentTimeMillis()),3L,true,taskLists,userIds));
+
+			kanbanService.inviteUser(new InvitationModel(3L,4L,7L));
 		};
 	}
 }
