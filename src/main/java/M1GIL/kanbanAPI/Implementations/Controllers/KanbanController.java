@@ -8,10 +8,7 @@ import M1GIL.kanbanAPI.Interfaces.IControllers.IKanbanController;
 import M1GIL.kanbanAPI.Interfaces.IServices.IKanbanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class KanbanController implements IKanbanController
 
     @Override
     @PostMapping(path = "/kanban/create")
-    public ResponseEntity<KanbanDto> create(KanbanDto createDto)
+    public ResponseEntity<KanbanDto> create(@RequestBody KanbanDto createDto)
     {
         return ResponseEntity.ok().body(kanbanService.create(createDto));
     }

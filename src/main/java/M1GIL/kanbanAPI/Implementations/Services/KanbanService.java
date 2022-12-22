@@ -48,7 +48,6 @@ public class KanbanService implements IKanbanService
         kanban.setName(createDto.getName());
         kanban.setCreator(creator);
         kanban.setIsPrivate(createDto.getIsPrivate());
-
         for(Long i : createDto.getUserIds())
             kanban.getUserList().add(userRepo.getById(i));
 
@@ -74,7 +73,7 @@ public class KanbanService implements IKanbanService
             taskListRepo.save(taskList);
             kanban.getTaskList().add(taskList);
         }
-
+        System.out.println("HEREEEEE 333333333");
         kanbanRepo.save(kanban);
         return Mappers.KanbanToKanbanDto(kanban);
     }
