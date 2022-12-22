@@ -42,7 +42,7 @@ public class AuthService implements IAuthService
 
         String accesToken = JWT.create()
                 .withSubject(loginModel.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 + 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                 //.withIssuer(request.getRequestURL().toString())
                 //.withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
@@ -51,7 +51,7 @@ public class AuthService implements IAuthService
 
         String refreshToken = JWT.create()
                 .withSubject(loginModel.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30 + 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 //.withIssuer(request.getRequestURL().toString())
                 //.withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);

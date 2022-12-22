@@ -2,7 +2,10 @@ package M1GIL.kanbanAPI.Implementations.Controllers;
 
 import M1GIL.kanbanAPI.Implementations.Dto.BaseResponseDto;
 import M1GIL.kanbanAPI.Implementations.Dto.KanbanDto;
+import M1GIL.kanbanAPI.Implementations.Dto.TaskDto;
 import M1GIL.kanbanAPI.Implementations.Models.CreateTaskListModel;
+import M1GIL.kanbanAPI.Implementations.Models.CreateTaskModel;
+import M1GIL.kanbanAPI.Implementations.Models.IdModel;
 import M1GIL.kanbanAPI.Implementations.Models.OrderKanbansModel;
 import M1GIL.kanbanAPI.Interfaces.IControllers.IKanbanController;
 import M1GIL.kanbanAPI.Interfaces.IServices.IKanbanService;
@@ -38,9 +41,24 @@ public class KanbanController implements IKanbanController
     }
 
     @Override
-    public ResponseEntity<BaseResponseDto> delete(Long kanbanId)
+    @PostMapping(path = "/kanban/addTask")
+    public ResponseEntity<TaskDto> addTask(@RequestBody CreateTaskModel createTaskModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.addTask(createTaskModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/deleteTask")
+    public ResponseEntity<BaseResponseDto> deleteTask(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.deleteTask(idModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/delete")
+    public ResponseEntity<BaseResponseDto> delete(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.delete(idModel));
     }
 
     @Override
@@ -50,13 +68,13 @@ public class KanbanController implements IKanbanController
     }
 
     @Override
-    public ResponseEntity<List<KanbanDto>> getUserKanbans(Long userId)
+    public ResponseEntity<List<KanbanDto>> getUserKanbans(IdModel idModel)
     {
         return null;
     }
 
     @Override
-    public ResponseEntity<List<KanbanDto>> getParticipedKanbans(Long userId)
+    public ResponseEntity<List<KanbanDto>> getParticipedKanbans(IdModel idModel)
     {
         return null;
     }
@@ -68,8 +86,16 @@ public class KanbanController implements IKanbanController
     }
 
     @Override
-    public ResponseEntity<BaseResponseDto> createTaskList(CreateTaskListModel createTaskListModel)
+    @PostMapping(path = "/kanban/addTaskList")
+    public ResponseEntity<BaseResponseDto> addTaskList(@RequestBody CreateTaskListModel createTaskListModel)
     {
-        return null;
+        return ResponseEntity.ok().body(kanbanService.addTaskList(createTaskListModel));
+    }
+
+    @Override
+    @PostMapping(path = "/kanban/deleteTaskList")
+    public ResponseEntity<BaseResponseDto> deleteTaskList(@RequestBody IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.deleteTaskList(idModel));
     }
 }

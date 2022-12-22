@@ -9,6 +9,8 @@ import M1GIL.kanbanAPI.Implementations.Entities.Task;
 import M1GIL.kanbanAPI.Implementations.Entities.TaskList;
 import M1GIL.kanbanAPI.Implementations.Entities.User;
 import M1GIL.kanbanAPI.Implementations.Models.CreateTaskListModel;
+import M1GIL.kanbanAPI.Implementations.Models.CreateTaskModel;
+import M1GIL.kanbanAPI.Implementations.Models.IdModel;
 import M1GIL.kanbanAPI.Implementations.Models.OrderKanbansModel;
 import M1GIL.kanbanAPI.Interfaces.IRepositories.IKanbanRepo;
 import M1GIL.kanbanAPI.Interfaces.IRepositories.ITaskListRepo;
@@ -73,7 +75,6 @@ public class KanbanService implements IKanbanService
             taskListRepo.save(taskList);
             kanban.getTaskList().add(taskList);
         }
-        System.out.println("HEREEEEE 333333333");
         kanbanRepo.save(kanban);
         return Mappers.KanbanToKanbanDto(kanban);
     }
@@ -96,9 +97,20 @@ public class KanbanService implements IKanbanService
     }
 
     @Override
-    public BaseResponseDto delete(Long kanbanId)
+    public BaseResponseDto delete(IdModel idModel)
     {
-        return null;
+        Kanban kanban = kanbanRepo.getById(idModel.getId());
+
+        for(TaskList tl : kanban.getTaskList())
+        {
+            for(Task t : tl.getTasks())
+                taskRepo.delete(t);
+
+            taskListRepo.delete(tl);
+        }
+
+        kanbanRepo.delete(kanban);
+        return new BaseResponseDto(new Date(System.currentTimeMillis()),new ArrayList<>());
     }
 
     @Override
@@ -108,13 +120,13 @@ public class KanbanService implements IKanbanService
     }
 
     @Override
-    public List<KanbanDto> getUserKanbans(Long userId)
+    public List<KanbanDto> getUserKanbans(IdModel idModel)
     {
         return null;
     }
 
     @Override
-    public List<KanbanDto> getParticipedKanbans(Long userId)
+    public List<KanbanDto> getParticipedKanbans(IdModel idModel)
     {
         return null;
     }
@@ -126,8 +138,53 @@ public class KanbanService implements IKanbanService
     }
 
     @Override
-    public BaseResponseDto createTaskList(CreateTaskListModel createTaskListModel)
+    public BaseResponseDto addTaskList(CreateTaskListModel createTaskListModel)
     {
-        return null;
+        Kanban kanban = kanbanRepo.getById(createTaskListModel.getKanbanId());
+        TaskListDto taskListDto = createTaskListModel.getTaskList();
+        TaskList taskList = new TaskList();
+        taskList.setCreationDate(new Date(System.currentTimeMillis()));
+        taskList.setTitle(taskListDto.getTitle());
+        taskList.setKanban(kanban);
+        taskListRepo.save(taskList);
+        kanban.getTaskList().add(taskList);
+        return Mappers.TaskListToTaskListDto(taskList);
+    }
+
+    @Override
+    public TaskDto addTask(CreateTaskModel createTaskModel)
+    {
+        TaskList taskList = taskListRepo.getById(createTaskModel.getTaskListId());
+        TaskDto taskDto = createTaskModel.getTask();
+        Task task = new Task();
+        task.setTaskList(taskList);
+        task.setDateLimit(taskDto.getDateLimit());
+        task.setName(taskDto.getName());
+        task.setCreator(userRepo.getById(taskDto.getCreatorId()));
+        task.setCreationDate(new Date(System.currentTimeMillis()));
+        task.setDescription(taskDto.getDescription());
+        task.setResponsible(userRepo.getById(taskDto.getResponsibleId()));
+        taskRepo.save(task);
+        taskList.getTasks().add(task);
+        return Mappers.TaskToTaskDto(task);
+    }
+
+    @Override
+    public BaseResponseDto deleteTaskList(IdModel idModel)
+    {
+        TaskList taskList = taskListRepo.getById(idModel.getId());
+
+        for(Task t : taskList.getTasks())
+            taskRepo.delete(t);
+
+        taskListRepo.delete(taskList);
+        return new BaseResponseDto(new Date(System.currentTimeMillis()),new ArrayList<>());
+    }
+
+    @Override
+    public BaseResponseDto deleteTask(IdModel idModel)
+    {
+        taskRepo.deleteById(idModel.getId());
+        return new BaseResponseDto(new Date(System.currentTimeMillis()),new ArrayList<>());
     }
 }
