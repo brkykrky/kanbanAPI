@@ -25,4 +25,5 @@ public interface IKanbanService
     BaseResponseDto refuseInvitation(IdModel idModel);
     TaskDto modifyTask(ModifyTaskModel modifyTaskModel);
     TaskListDto modifyTaskList(ModifyTaskListModel modifyTaskListModel);
+    KanbanDto getKanban(IdModel idModel);
 }

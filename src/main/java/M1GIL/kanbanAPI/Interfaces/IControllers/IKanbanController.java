@@ -26,4 +26,5 @@ public interface IKanbanController
     ResponseEntity<BaseResponseDto> refuseInvitation(IdModel idModel);
     ResponseEntity<TaskDto> modifyTask(ModifyTaskModel modifyTaskModel);
     ResponseEntity<TaskListDto> modifyTaskList(ModifyTaskListModel modifyTaskListModel);
+    ResponseEntity<KanbanDto> getKanban(IdModel idModel);
 }

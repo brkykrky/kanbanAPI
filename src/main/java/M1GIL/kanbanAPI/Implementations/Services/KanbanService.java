@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service @Transactional @Slf4j
 public class KanbanService implements IKanbanService
@@ -285,5 +286,10 @@ public class KanbanService implements IKanbanService
         TaskList taskList = taskListRepo.getById(modifyTaskListModel.getId());
         taskList.setTitle(modifyTaskListModel.getTitle());
         return Mappers.TaskListToTaskListDto(taskList);
+    }
+    @Override
+    public KanbanDto getKanban(IdModel idModel)
+    {
+        return Mappers.KanbanToKanbanDto(kanbanRepo.getById(idModel.getId()));
     }
 }

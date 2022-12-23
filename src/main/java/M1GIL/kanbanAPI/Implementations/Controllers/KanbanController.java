@@ -132,4 +132,11 @@ public class KanbanController implements IKanbanController
     {
         return ResponseEntity.ok().body(kanbanService.modifyTaskList(modifyTaskListModel));
     }
+
+    @Override
+    @PostMapping(path = "/kanban/getKanban")
+    public ResponseEntity<KanbanDto> getKanban(IdModel idModel)
+    {
+        return ResponseEntity.ok().body(kanbanService.getKanban(idModel));
+    }
 }
